@@ -1,0 +1,113 @@
+FROM: https://www.elastic.co/guide/en/kibana/current/tutorial-load-dataset.html
+
+
+1 - Navigate to https://www.elastic.co/guide/en/kibana/current/tutorial-load-dataset.html
+and uncompress the data sample files accounts.zip logs.jsonl.gz
+(this files and shakespeare.json are on /resources folder)
+
+2 - Setup The mappings for the fields
+
+I) Load shakespeare data
+curl -u elastic:changeme -XPUT http://localhost:9200/shakespeare -d '
+{
+ "mappings" : {
+  "_default_" : {
+   "properties" : {
+    "speaker" : {"type": "string", "index" : "not_analyzed" },
+    "play_name" : {"type": "string", "index" : "not_analyzed" },
+    "line_id" : { "type" : "integer" },
+    "speech_number" : { "type" : "integer" }
+   }
+  }
+ }
+}
+';
+
+
+II) Setup geo_points for mapping logs
+curl -u elastic:changeme -XPUT http://localhost:9200/logstash-2015.05.18 -d '
+{
+  "mappings": {
+    "log": {
+      "properties": {
+        "geo": {
+          "properties": {
+            "coordinates": {
+              "type": "geo_point"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+';
+
+curl -u elastic:changeme -XPUT http://localhost:9200/logstash-2015.05.19 -d '
+{
+  "mappings": {
+    "log": {
+      "properties": {
+        "geo": {
+          "properties": {
+            "coordinates": {
+              "type": "geo_point"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+';
+
+curl -u elastic:changeme -XPUT http://localhost:9200/logstash-2015.05.20 -d '
+{
+  "mappings": {
+    "log": {
+      "properties": {
+        "geo": {
+          "properties": {
+            "coordinates": {
+              "type": "geo_point"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+';
+
+III) Load the data sets (inside the resources folder)
+curl -u elastic:changeme -XPOST 'localhost:9200/bank/account/_bulk?pretty' --data-binary @accounts.json
+curl -u elastic:changeme -XPOST 'localhost:9200/shakespeare/_bulk?pretty' --data-binary @shakespeare.json
+curl -u elastic:changeme -XPOST 'localhost:9200/_bulk?pretty' --data-binary @logs.jsonl
+
+
+IV) check data created
+curl -u elastic:changeme 'http://localhost:9200/_cat/indices?v'
+See the results :
+health status index                           uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   bank                            dzzKafDgQXi8buP0GoHqTQ   5   1       1000            0    640.4kb        640.4kb
+yellow open   .monitoring-kibana-2-2017.03.09 hcSAhSLeToCLCL-c4h8q7w   1   1        532            0    436.1kb        436.1kb
+yellow open   .kibana                         6B6KYjAhRVCPG8gxn5WN8A   1   1          1            0      3.1kb          3.1kb
+yellow open   .monitoring-es-2-2017.03.09     ycMc-OAjQByhcX0eptToHA   1   1       7316          236      5.5mb          5.5mb
+yellow open   .monitoring-data-2              bCzK5bpmRLmTsbI1TLdgzg   1   1          5            0     16.9kb         16.9kb
+green  open   library                         GEemcyRSRFiVXETFdDVAXw   1   0          5            0      5.5kb          5.5kb
+yellow open   shakespeare                     rUgyWWgYQeeV78dvj_GHPw   5   1     111396            0     28.3mb         28.3mb
+yellow open   logstash-2015.05.20             5TWvmxTVQjmVmV28OK3ANQ   5   1       4750            0     31.1mb         31.1mb
+yellow open   logstash-2015.05.18             bx7A7XDfTq23i4wYWoqTyQ   5   1       4631            0     29.5mb         29.5mb
+yellow open   logstash-2015.05.19             13jNYMsjTT-qrKkBdNogSg   5   1       4624            0     30.4mb         30.4mb
+
+V) Now create a index on kibana for the index without timestamps.
+
+1) Navigate to http://localhost:5601/app/kibana#/management/kibana/index/?_g=() 
+Create a shakespeare index and make sure the Index contains time-based events box is unchecked when you create index patterns for these data sets
+( look at folder study/00-01-kibana-create-sheakspeare-index.png)
+
+2) Click at add new button on top left to create a second index named ba* ( look at folder study/00-02-kibana-create-ba-index.png)
+
+V) Now create a index on kibana for the index with timestamps.
+Click at add new button on top left and make sure the Index contains time-based events box is checked and select the @timestamp field from the Time-field name drop-down. ( look at folder study/00-03-kibana-create-logstash-index.png)
+
