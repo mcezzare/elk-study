@@ -111,3 +111,4 @@ Create a shakespeare index and make sure the Index contains time-based events bo
 V) Now create a index on kibana for the index with timestamps.
 Click at add new button on top left and make sure the Index contains time-based events box is checked and select the @timestamp field from the Time-field name drop-down. ( look at folder study/00-03-kibana-create-logstash-index.png)
 
+VI) Check https://www.elastic.co/guide/en/kibana/current/tutorial-discovering.html to create your dashboards and how to explore all data created, its good to look at https://www.elastic.co/guide/en/elasticsearch/reference/5.2/query-dsl-query-string-query.html#query-string-syntax too.
