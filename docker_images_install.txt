@@ -58,5 +58,4 @@ check folder study, the operations are order by filenames.
 Loading sample data to Kibana
 ##################################################################
 
-
 Continue at folder study/Kibana-Sequence.txt
