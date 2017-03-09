@@ -1,0 +1,52 @@
+##################################################################
+ElasticSearch
+##################################################################
+
+1 - Pull the images
+docker pull docker.elastic.co/elasticsearch/elasticsearch:5.2.2
+docker run -p 9200:9200 -e "http.host=0.0.0.0" -e "transport.host=127.0.0.1" docker.elastic.co/elasticsearch/elasticsearch:5.2.2
+
+1a) Test instalation
+curl -u elastic http://127.0.0.1:9200
+
+and 
+ 
+curl -u elastic http://127.0.0.1:9200/_cat/health
+
+Enter host password for user 'elastic': changeme
+
+1b) check the container
+docker exec -it 84b2f159117a bash
+
+
+##################################################################
+kibana
+##################################################################
+
+1 - Pull the images
+
+docker pull docker.elastic.co/kibana/kibana:5.2.2
+docker run -p 5601:5601 docker.elastic.co/kibana/kibana:5.2.2
+inside the container : bin/kibana-plugin install x-pack
+
+
+##################################################################
+—— Using both together
+##################################################################
+
+1 - Create an file to build and up the containers :
+/Users/mcezzare/Desktop/_ELK/docker-compose.yml
+
+navigate to url http://localhost:5601/
+same user and password : elastic/changeme
+
+Folders esdata1 and kibana1 is to store the data you will create later
+
+sources:
+https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+https://www.elastic.co/guide/en/kibana/current/_configuring_kibana_on_docker.html#docker-env-config
+
+
+——— Creating and searching
+on kibana devtools:
+check folder study, the operations are order by filenames.

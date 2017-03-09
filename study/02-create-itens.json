@@ -1,0 +1,11 @@
+POST /library/books/_bulk
+{ "index": {"_id" : 1 } }
+{ "title" : "The quick brown fox", "price" : 5, "colors" : ["red","green","blue"] }
+{ "index": {"_id" : 2 } }
+{ "title" : "The quick brown fox jumps over the lazy dog", "price" : 15, "colors" : ["blue","yellow"] }
+{ "index": {"_id" : 3 } }
+{ "title" : "The quick brown fox jumps over the quick dog", "price" : 8, "colors" : ["red","blue"] }
+{ "index": {"_id" : 4 } }
+{ "title" : "Brown fox brown dog", "price" : 2, "colors" : ["black","yellow","red","blue"] }
+{ "index": {"_id" : 5 } }
+{ "title" : "Lazy dog", "price" : 9, "colors" : ["red","blue","green"] }
