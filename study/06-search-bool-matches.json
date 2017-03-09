@@ -1,0 +1,16 @@
+GET /library/books/_search
+{
+    "query": {
+        "bool": {
+            "must": [{
+                "match": {
+                    "title": "quick"
+                }
+            }, {
+                "match_phrase": {
+                    "title": "quick dog"
+                }
+            }]
+        }
+    }
+}

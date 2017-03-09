@@ -1,0 +1,8 @@
+GET /library/books/_search
+{
+  "query" : {
+    "match" : {
+        "title" : "quick dog"
+    }
+  }
+}
