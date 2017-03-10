@@ -59,3 +59,16 @@ Loading sample data to Kibana
 ##################################################################
 
 Continue at folder study/Kibana-Sequence.txt
+
+
+##################################################################
+Logstash
+##################################################################
+
+docker pull docker.elastic.co/logstash/logstash:5.2.2
+docker run docker.elastic.co/logstash/logstash:5.2.2
+OR
+docker run --name logstash docker.elastic.co/logstash/logstash:5.2.2
+
+acessing the container:
+docker exec -it logstash bash

@@ -1,0 +1,29 @@
+Starting at : https://www.elastic.co/guide/en/logstash/current/getting-started-with-logstash.html
+Configuring : https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
+Docker : https://www.elastic.co/guide/en/logstash/current/docker.html
+
+1) acessing the contanier I copied all files from /usr/share/logstash/config because docker can't mount files as volumes, only entire directories, so inside the logstash/config folder i used: 
+
+$touch jvm.options log4j2.properties startup.options logstash.yml
+
+and copied the contents of all files changing the logstash.yml to point to right url of Elastic in param:
+xpack.monitoring.elasticsearch.url: http://elasticsearch:9200
+
+
+2) Then added the new image of logstash to the existing docker-compose.yml
+  logstash:
+    image: docker.elastic.co/logstash/logstash:5.2.2
+    container_name: logstash
+    volumes:
+      - ./logstash/config/:/usr/share/logstash/config
+      - ./logstash/pipeline/:/usr/share/logstash/pipeline
+
+
+3) stashing events
+https://www.elastic.co/guide/en/logstash/current/first-event.html
+
+
+
+@TODO: After install Redis at another container, look at : 
+https://www.elastic.co/blog/just_enough_redis_for_logstash
+https://www.elastic.co/guide/en/logstash/current/plugins-inputs-redis.html
