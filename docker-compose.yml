@@ -39,3 +39,14 @@ services:
     volumes:
       - ./logstash/config/:/usr/share/logstash/config
       - ./logstash/pipeline/:/usr/share/logstash/pipeline
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: my-rabbitmq
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
+    environment:      
+      RABBITMQ_DEFAULT_VHOST: localhost
+      HOSTNAME: localhost
+
