@@ -72,3 +72,23 @@ docker run --name logstash docker.elastic.co/logstash/logstash:5.2.2
 
 acessing the container:
 docker exec -it logstash bash
+
+##################################################################
+RabbitMQ
+##################################################################
+1) docker pull rabbitmq:3-management
+
+2) docker run --hostname localhost --name my-rabbitmq -p 15672:15672 rabbitmq:3-management
+
+if run before docker-compose
+docker run --hostname localhost --name my-rabbitmq -p 15672:15672 -v ./rabbitmq:/var/lib/rabbitmq rabbitmq:3-management
+
+in root folder(_ELK):
+docker run --hostname localhost -p 15672:15672 -v rabbitmq:/var/lib/rabbitmq rabbitmq:3-management
+
+
+
+Basic Course:
+1) http://objectzen.com/2016/04/07/rabbitmq-messaging-concepts/
+1 - Reliable Messaging With RabbitMQ - Part 1 - https://www.youtube.com/watch?v=XjuiZM7JzPw
+2 - Reliable Messaging with RabbitMQ - Part 2 - Store And Forward Queues - https://www.youtube.com/watch?v=Dg6k4PR-a6w
