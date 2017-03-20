@@ -1,0 +1,32 @@
+If you want to study rabbit only,  inside the folder rabbitmq, there is a single docker-compose file or 
+in root folder(_ELK) run :
+docker run --hostname localhost -p 15672:15672 -v rabbitmq:/var/lib/rabbitmq rabbitmq:3-management
+
+3) Adding data and user to RabbitMQ
+After the container is up
+
+a) Navigate to : http://localhost:15672/#/vhosts
+Add a new virtual host with name "/"
+
+b) Navigate to http://localhost:15672/#/users
+Add a new user named test_guest 
+
+c) Navigate to http://localhost:15672/#/users/test_guest 
+Set permissions .* on virtual host / to this user
+
+there is example clients with php in folder  _ELK/study/rabbitData/clients/php/
+run composer install and test the scripts. composer --> https://getcomposer.org/
+send.php and receive.php to see the messages on broker
+FROM: https://www.rabbitmq.com/tutorials/tutorial-one-php.html
+
+
+/Users/mcezzare/Desktop/_ELK/study/rabbitData/clients/php/receive.php
+
+Basic Course:
+1) http://objectzen.com/2016/04/07/rabbitmq-messaging-concepts/
+1 - Reliable Messaging With RabbitMQ - Part 1 - https://www.youtube.com/watch?v=XjuiZM7JzPw
+2 - Reliable Messaging with RabbitMQ - Part 2 - Store And Forward Queues - https://www.youtube.com/watch?v=Dg6k4PR-a6w
+
+-- closed course : 
+1) http://objectzen.com/rabbitmq-design-architecture-course/a123-day-1/
+
