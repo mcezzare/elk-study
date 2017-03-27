@@ -29,4 +29,6 @@ Basic Course:
 
 -- closed course : 
 1) http://objectzen.com/rabbitmq-design-architecture-course/a123-day-1/
+2) http://objectzen.com/rabbitmq-design-architecture-course/a321-day-2/
+3) http://objectzen.com/rabbitmq-design-architecture-course/a124-day-3/
 
